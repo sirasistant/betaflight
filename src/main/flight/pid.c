@@ -156,6 +156,8 @@ void resetPidProfile(pidProfile_t *pidProfile)
         .abs_control_gain = 0,
         .abs_control_limit = 90,
         .abs_control_error_limit = 20,
+        .voltageControlledThrottleEnabled = false,
+        .fullThrottleTargetVoltage = 168 // Target voltage in 0.1V steps
     );
 }
 

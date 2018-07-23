@@ -774,6 +774,13 @@ FAST_CODE_NOINLINE void mixTable(timeUs_t currentTimeUs, uint8_t vbatPidCompensa
     // Calculate voltage compensation
     const float vbatCompensationFactor = vbatPidCompensation ? calculateVbatPidCompensation() : 1.0f;
 
+    // Apply battery voltage compensation to throttle
+    if (currentPidProfile->voltageControlledThrottleEnabled) {     
+        const float vbatThrottleCompensationFactor = 
+            constrainf((float)currentPidProfile->fullThrottleTargetVoltage / getBatteryVoltage(), 0.1f, 2.0f);
+        throttle = constrainf(throttle * vbatThrottleCompensationFactor, 0.0f, 1.0f);
+    }
+
     // Apply the throttle_limit_percent to scale or limit the throttle based on throttle_limit_type
     if (currentControlRateProfile->throttle_limit_type != THROTTLE_LIMIT_TYPE_OFF) {
         throttle = applyThrottleLimit(throttle);

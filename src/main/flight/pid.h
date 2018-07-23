@@ -138,6 +138,8 @@ typedef struct pidProfile_s {
     uint8_t abs_control_gain;               // How strongly should the absolute accumulated error be corrected for
     uint8_t abs_control_limit;              // Limit to the correction
     uint8_t abs_control_error_limit;        // Limit to the accumulated error
+    uint8_t voltageControlledThrottleEnabled;   // Enable vbat controlled throttle
+    uint8_t fullThrottleTargetVoltage;    // Target full throttle voltage (100% throttle will try to give this voltage to the motors)
 } pidProfile_t;
 
 #ifndef USE_OSD_SLAVE
